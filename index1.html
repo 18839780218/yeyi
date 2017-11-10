@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>判断鼠标进入方向</title>
+</head>
+<body>
+<style>
+    html,body{margin:0;padding:0;}
+    #box{
+        width:500px;
+        height: 500px;
+        margin:30px auto 0;
+        position: relative;
+
+    }
+    #box img{
+        width:100%;
+        height:100%;
+
+    }
+    #title{
+        width:100%;
+        height:40px;
+        background: greenyellow;
+        opacity: 0.4;
+        position: absolute;
+        bottom: 0;
+    }
+</style>
+        <div id="box">
+            <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2369557846,1214723107&fm=27&gp=0.jpg" alt="">
+            <div id="title"></div>
+        </div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script>
+    $("#box").bind("mouseenter mouseleave",
+        function(e) {
+            var w = $(this).width();
+            var h = $(this).height();
+            var x = (e.pageX - this.offsetLeft - (w / 2)) * (w > h ? (h / w) : 1);
+            var y = (e.pageY - this.offsetTop - (h / 2)) * (h > w ? (w / h) : 1);
+            var direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4;
+            console.log(direction);
+            switch (direction){
+                case 0:{
+                    var aDiv = $("<p>").html("星空").css({height:40,position:"absolute",bottom:-40,color:"red",textAlign:"center"});
+                    $("#title").append(aDiv);
+                    aDiv.animate({
+                        bottom:0
+                    },100)
+                }
+            }
+
+        });
+</script>
+</body>
+</html>
